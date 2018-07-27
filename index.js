@@ -68,7 +68,7 @@ app.get('/member/2', function(req, res){
 	});
 });
 
-// connect to database
+/** connect to database
 app.get('/products',(req, res)=>{
 
 	
@@ -81,7 +81,7 @@ app.get('/products',(req, res)=>{
 		console.log('error',err);
 		res.send('Error!');
 	});
-});
+});**/
 
 app.listen(app.get('port'), function() {
 	console.log('Server started at port 3000');
