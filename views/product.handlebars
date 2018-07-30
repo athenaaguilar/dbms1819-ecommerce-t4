@@ -1,1 +1,74 @@
-<h1>{{title}}</h1>
+<nav class="site-header sticky-top py-1">
+  <div class="container d-flex flex-column flex-md-row">
+    <a class="py-3 d-none d-md-inline-block" href="../../" style="font-size:24px"><i class="fa fa-home" style="font-size:25px"></i>&nbsp;&nbsp;HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+    <a class="py-3 d-none d-md-inline-block" href="/store" style="font-size:24px"><i class="fa fa-th-large" style="font-size:25px"></i>&nbsp;&nbsp;PRODUCTS</a>
+  </div>
+</nav>
+<br>
+<div class="container" style="width: 100%">
+  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-dark mr-md-3 pt-3 px-3 px-md-5 overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
+      <div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-7">
+              <div class="mx-auto" style="width: 100%;"><br>
+                <img style="width:100%; border-radius: 15px 0 15px 0" src="/images/{{img}}">
+              </div><br>
+            </div>
+            <div class="col-sm-5">
+              <ul style="display: inline; text-decoration: none">
+                <li><strong> Name: </strong>{{name}}</li>
+                <li><strong> Type: </strong>{{type}}</li>
+                <li><strong> Description: </strong>{{description}}</li>
+                <li><strong> Brand: </strong>{{brand}}</li>
+                <li><strong> Price: </strong>{{price}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div class="bg-dark mr-md-3 pt-3 px-3 px-md-5 overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
+      <form method="post" action="/send-email">
+        Customer Name:
+        <div class="form-group">
+          <input type="name" class="form-control" id="name" placeholder="Enter Your Name" name="name">
+        </div>
+      
+        Phone: <br>
+        <div class="form-group">
+          <input type="number" class="form-control" id="no" placeholder="Enter Contact Number" name="phone">
+        </div>
+
+        Quantity: <br>
+        <div class="form-group">
+          <input type="number" class="form-control" id="number" placeholder="Enter Quantity" name="qty">
+        </div>
+
+        Product ID: <br>
+        <div class="form-group">
+          <input type="number" class="form-control" id="id" placeholder="Enter Product ID" name="id" >
+        </div>
+
+         Email: <br>
+        <div class="form-group">
+          <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" >
+        </div>
+          
+        <button type="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-cart-plus" style="font-size:20px"></i>&nbsp;&nbsp;SUBMIT</button>
+      </form>
+    </div>
+  </div><br>
+
+  <footer class="mastfoot mt-auto white-text">
+    <div class="inner text-center" style="letter-spacing: 5px;">
+      <strong><p>TEAM FOUR</strong></p></strong>
+    </div>
+  </footer>
+</div>
