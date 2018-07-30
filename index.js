@@ -135,7 +135,7 @@ app.post('/send-email', function (req, res) {
       });
       const mailOptions = {
           from: '"Team FOUR" <xx@gmail.com>', // sender address
-          to: 'athena.aguilar00@gmail.com', // list of receivers
+          to: 'teamfourdbms@gmail.com', // list of receivers
           subject: 'Contact Details', // Subject line
           html: '<h1>Information</h1>'+'<br>'+
           		'<h2>Name: </h2><h3>'+req.body.name+'</h3><br>'+
