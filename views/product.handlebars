@@ -1,3 +1,4 @@
+<!--NAV-->
 <nav class="site-header sticky-top py-1">
   <div class="container d-flex flex-column flex-md-row">
     <a class="py-3 d-none d-md-inline-block" href="../../" style="font-size:24px"><i class="fa fa-home" style="font-size:25px"></i>&nbsp;&nbsp;HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
@@ -5,15 +6,17 @@
   </div>
 </nav>
 <br>
-<div class="container" style="width: 100%">
+
+<!--BODY-->
+<div class="container">
   <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
     <div class="bg-dark mr-md-3 pt-3 px-3 px-md-5 overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
       <div>
         <div class="container">
           <div class="row">
             <div class="col-sm-7">
-              <div class="mx-auto" style="width: 100%;"><br>
-                <img style="width:100%; border-radius: 15px 0 15px 0" src="/images/{{img}}">
+              <div class="mx-auto view overlay" style="width: 80%; border-radius: 0 0 20px 0"><br>
+                <img type="button" data-toggle="modal" data-target="#product_image" style="width:100%; border-radius: 0 0 20px 0" src="{{img}}" class="img-fluid" alt="">
               </div><br>
             </div>
             <div class="col-sm-5">
@@ -24,51 +27,82 @@
                 <li><strong> Brand: </strong>{{brand}}</li>
                 <li><strong> Price: </strong>{{price}}</li>
               </ul>
+              <div class="pull-down" style="margin-bottom: 15px;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customer_details"><i class="fa fa-cart-plus" style="font-size:15px;"></i>&nbsp;&nbsp;Add</button>
+              </div>
             </div>
           </div>
         </div>  
       </div>
     </div>
   </div>
-</div>
+</div><br>
 
-<div class="container">
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-    <div class="bg-dark mr-md-3 pt-3 px-3 px-md-5 overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
-      <form method="post" action="/send-email">
-        Customer Name:
-        <div class="form-group">
-          <input type="name" class="form-control" id="name" placeholder="Enter Your Name" name="name">
-        </div>
-      
-        Phone: <br>
-        <div class="form-group">
-          <input type="number" class="form-control" id="no" placeholder="Enter Contact Number" name="phone">
-        </div>
-
-        Quantity: <br>
-        <div class="form-group">
-          <input type="number" class="form-control" id="number" placeholder="Enter Quantity" name="qty">
-        </div>
-
-        Product ID: <br>
-        <div class="form-group">
-          <input type="number" class="form-control" id="id" placeholder="Enter Product ID" name="id" >
-        </div>
-
-         Email: <br>
-        <div class="form-group">
-          <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" >
-        </div>
+<!--MODAL-FORM-->
+<div class="modal fade" id="customer_details" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/send-email">
+            Customer Name:
+            <div class="form-group">
+              <input type="name" class="form-control" id="name" placeholder="Enter Your Name" name="name">
+            </div>
           
-        <button type="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-cart-plus" style="font-size:20px"></i>&nbsp;&nbsp;SUBMIT</button>
-      </form>
-    </div>
-  </div><br>
+            Phone: <br>
+            <div class="form-group">
+              <input type="tel" class="form-control" id="no" placeholder="Enter Contact Number" name="phone">
+            </div>
 
-  <footer class="mastfoot mt-auto white-text">
-    <div class="inner text-center" style="letter-spacing: 5px;">
-      <strong><p>TEAM FOUR</strong></p></strong>
+            Quantity: <br>
+            <div class="form-group">
+              <input type="number" class="form-control" id="number" placeholder="Enter Quantity" name="qty">
+            </div>
+
+            Product ID: <br>
+            <div class="form-group">
+              <input type="number" class="form-control" id="id" placeholder="Enter Product ID" name="id" >
+            </div>
+
+             Email: <br>
+            <div class="form-group">
+              <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" >
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;Submit</button>
+            </div>
+        </form>
+      </div>
     </div>
-  </footer>
+  </div>
 </div>
+
+<!--MODAL-IMAGE-->
+<div class="modal fade" id="product_image" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="width:95%;">
+      <img style="width:100%;" src="/images/{{img}}">
+    </div>
+  </div>
+</div>
+
+<!--FOOTER-->
+<footer class="mastfoot mt-auto white-text">
+  <div class="inner text-center" style="letter-spacing: 5px;">
+    <strong><p>TEAM FOUR</strong></p></strong>
+  </div>
+</footer>
+
+<!--SHOW-MODAL-SCRIPT-->
+<script type="text/javascript">
+$('#customer_details').on('show.bs.modal', function (event) {
+  var modal = $(this)
+  modal.find('.modal-title').text('{{name}}')
+})
+</script>

@@ -36,80 +36,27 @@ app.get('/', function(req, res) {
 	});
 });
 
-app.get('/product/1', function(req, res) {
-	res.render('product', {
+app.get('/product/:id', function(req, res) {
+	 client.query('SELECT * FROM tbl_products;')
+	.then((results)=>{
+	    console.log('results?', results);
+		res.render('product',{
 		title: 'Product 1 ',
-		name: 'The Starry Night',
-		type: 'Painting',
-		description: 'Painted 1889',
-		brand: 'Vincent Van Gogh',
-		price: '$23M',
-		img: 'starrynight.jpg'
-	});
-});
-
-app.get('/product/2', function(req, res) {
-	res.render('product', {
-		title: 'Product 2 ',
-		name: 'Mona Lisa',
-		type: 'Painting',
-		description: 'Painted 1503',
-		brand: 'Leonardo Da Vinci',
-		price: '$16M',
-		img: 'monalisa.jpg'
-	});
-});
-
-app.get('/product/3', function(req, res) {
-	res.render('product', {
-		title: 'Product 3 ',
-		name: 'The Last Supper',
-		type: 'Tempera Paint',
-		description: 'Painted 1498',
-		brand: 'Leonardo Da Vinci',
-		price: '$30M',
-		img: 'lastsupper.jpg'
-	});
-});
-
-app.get('/product/4', function(req, res) {
-	res.render('product', {
-		title: 'Product 4 ',
-		name: 'The Spolarium',
-		type: 'Oil Paint',
-		description: 'Painted 1884',
-		brand: 'Juan Luna',
-		price: '$10M',
-		img: 'spolarium.jpg'
-	});
-});
-
-app.get('/product/5', function(req, res) {
-	res.render('product', {
-		title: 'Product 5 ',
-		name: 'The Persistence of Memory',
-		type: 'Oil Paint',
-		description: 'Painted 1931',
-		brand: 'Salvador Dali',
-		price: '$20M',
-		img: 'memory.jpg'
-	});
-});
-
-app.get('/product/6', function(req, res) {
-	res.render('product', {
-		title: 'Product 6 ',
-	    name: 'The Creation of Adam',
-		type: 'Plaster Paint',
-		description: 'Painted 1508–1512',
-		brand: 'Michelangelo Buonarroti',
-		price: '$120M',
-		img: 'creation.jpg'
+		name: results.rows[req.params.id-1].name,
+		type: results.rows[req.params.id-1].type,
+		description: results.rows[req.params.id-1].description,
+		brand: results.rows[req.params.id-1].brand,
+		price: results.rows[req.params.id-1].price,
+		img: '/images/'+results.rows[req.params.id-1].pic
+	})
+	})
+	.catch((err) => {
+		console.log('error',err);
+		res.send('Error!');
 	});
 });
 
 app.get('/store',(req, res)=>{
-
 	
 	 client.query('SELECT * FROM tbl_products;')
 	.then((results)=>{
