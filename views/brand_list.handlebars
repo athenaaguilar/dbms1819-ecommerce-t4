@@ -1,0 +1,16 @@
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-sm-4">
+			<a href="#" class="list-group-item list-group-item-action active"><i class="fa fa-tags" style="font-size:15px"></i>&nbsp;BRANDS</a>
+			{{#each rows}}
+			<a href="#" class="list-group-item list-group-item-action ">{{this.name}}</a>
+			{{/each}}
+		</div>
+		<div class="col-sm-8">
+			<a href="#" class="list-group-item list-group-item-action active"><i class="fas fa-file-alt" style="font-size:15px"></i>&nbsp;DESCRIPTION</a>
+			{{#each rows}}
+			<a href="#" class="list-group-item list-group-item-action ">{{this.description}}</a>
+			{{/each}}
+		</div>
+	</div>
+</div>

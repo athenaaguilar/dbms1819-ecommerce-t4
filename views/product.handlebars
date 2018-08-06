@@ -1,16 +1,7 @@
-<!--NAV-->
-<nav class="site-header sticky-top py-1">
-  <div class="container d-flex flex-column flex-md-row">
-    <a class="py-3 d-none d-md-inline-block" href="../../" style="font-size:24px"><i class="fa fa-home" style="font-size:25px"></i>&nbsp;&nbsp;HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-    <a class="py-3 d-none d-md-inline-block" href="/store" style="font-size:24px"><i class="fa fa-th-large" style="font-size:25px"></i>&nbsp;&nbsp;PRODUCTS</a>
-  </div>
-</nav>
-<br>
-
 <!--BODY-->
 <div class="container">
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-    <div class="bg-dark mr-md-3 pt-3 px-3 px-md-5 overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
+  <div class="row justify-content-center">
+      <div class="col-md-11 col-sm-11 col-xs-11 mr-sm-3 mb-3 p-1 bg-dark overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
       <div>
         <div class="container">
           <div class="row">
@@ -21,14 +12,19 @@
             </div>
             <div class="col-sm-5">
               <ul style="display: inline; text-decoration: none">
-                <li><strong> Name: </strong>{{name}}</li>
-                <li><strong> Type: </strong>{{type}}</li>
-                <li><strong> Description: </strong>{{description}}</li>
-                <li><strong> Brand: </strong>{{brand}}</li>
-                <li><strong> Price: </strong>{{price}}</li>
-              </ul>
-              <div class="pull-down" style="margin-bottom: 15px;">
+                <li>Name: <i>{{name}}</i></li>
+                <li>Description: <i>{{description}}</i></li>
+                <li>Tagline: <i>{{tagline}}</i></li>
+                <li>Price: <i>{{price}}</i></li>
+                <li>Warranty: <i>{{warranty}}</i></li>
+                <li>Brand name: <i>{{brandname}}</i></li>
+                <li>Brand Description: <i>{{branddesc}}</i></li>
+                <li>Category: <i>{{category}}</i></li>
+              </ul><hr style="background-color: #66686b">
+              <div class="pull-down" style="margin-bottom: 15px; margin-right: 10px">
+                <a href="/product/update/{{this.id}}"><button type="button" class="btn btn-primary" data-toggle="modal"><i class="fa fa-cart-plus" style="font-size:15px;"></i>&nbsp;&nbsp;Update</button></a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customer_details"><i class="fa fa-cart-plus" style="font-size:15px;"></i>&nbsp;&nbsp;Add</button>
+
               </div>
             </div>
           </div>
@@ -36,7 +32,7 @@
       </div>
     </div>
   </div>
-</div><br>
+</div>
 
 <!--MODAL-FORM-->
 <div class="modal fade" id="customer_details" tabindex="-1" role="dialog" aria-hidden="true">
@@ -72,7 +68,7 @@
 
              Email: <br>
             <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" >
+              <input type="email" class="form-control" id="email" placeholder="Enter Email" nafme="email" >
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;Submit</button>
@@ -87,19 +83,12 @@
 <div class="modal fade" id="product_image" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="width:95%;">
-      <img style="width:100%;" src="/images/{{img}}">
+      <img style="width:100%;" src="{{img}}">
     </div>
   </div>
 </div>
 
-<!--FOOTER-->
-<footer class="mastfoot mt-auto white-text">
-  <div class="inner text-center" style="letter-spacing: 5px;">
-    <strong><p>TEAM FOUR</strong></p></strong>
-  </div>
-</footer>
-
-<!--SHOW-MODAL-SCRIPT-->
+<!--FOR SHOW-MODAL-->
 <script type="text/javascript">
 $('#customer_details').on('show.bs.modal', function (event) {
   var modal = $(this)
