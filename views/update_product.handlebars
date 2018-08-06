@@ -1,18 +1,18 @@
 <div class="modal-body">
          <form method="post" action="/updateproduct/{{rows.productsid}}">
             <div class="form-group">
-              Products Name: <input type="text" class="form-control" placeholder="{{rows.productsname}}" name="productsname">
-              Products Description:<input type="text" class="form-control"  placeholder="{{rows.productsdesc}}" name="productsdesc">
-              Tagline:<input type="text" class="form-control" placeholder="{{rows.productstag}}" name="productstag">
-              Price: <input type="number" class="form-control" placeholder="{{rows.productsprice}}" name="productsprice">
-              Warranty: <input type="number" class="form-control" placeholder="{{rows.productswarranty}}" name="productswarranty">
+              Products Name: <input type="text" class="form-control" value="{{rows.productsname}}" name="productsname">
+              Products Description:<input type="text" class="form-control"  value="{{rows.productsdesc}}" name="productsdesc">
+              Tagline:<input type="text" class="form-control" value="{{rows.productstag}}" name="productstag">
+              Price: <input type="number" class="form-control" value="{{rows.productsprice}}" name="productsprice">
+              Warranty: <input type="number" class="form-control" value="{{rows.productswarranty}}" name="productswarranty">
               Brand:       <div class="form-group">
                <select class="form-control" name="brand" required>
               {{#each brand.[0]}}
               <option value ="{{this.id}}">{{this.name}}</option>
               {{/each}}
               </select>
-              Brand Description:<input type="text" class="form-control"  placeholder="{{rows.branddesc}}" name="branddesc">
+              Brand Description:<input type="text" class="form-control"  value="{{rows.branddesc}}" name="branddesc">
               Category:               <select class="form-control" name="category" required>
               {{#each brand.[1]}}
               <option value ="{{this.id}}">{{this.name}}</option>
