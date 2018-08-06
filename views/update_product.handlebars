@@ -1,10 +1,10 @@
 <div class="modal-body">
          <form method="post" action="/updateproduct/{{rows.productsid}}">
             <div class="form-group">
-              Products Name: <input type="text" class="form-control" value="{{rows.productsname}}" name="productsname">
+              Products Name: <input type="text" class="form-control" value="{{rows.productsname}}" name="productsname" required>
               Products Description:<input type="text" class="form-control"  value="{{rows.productsdesc}}" name="productsdesc">
               Tagline:<input type="text" class="form-control" value="{{rows.productstag}}" name="productstag">
-              Price: <input type="number" class="form-control" value="{{rows.productsprice}}" name="productsprice">
+              Price: <input type="number" class="form-control" value="{{rows.productsprice}}" name="productsprice" required> 
               Warranty: <input type="number" class="form-control" value="{{rows.productswarranty}}" name="productswarranty">
               Brand:       <div class="form-group">
                <select class="form-control" name="brand" required>
@@ -18,6 +18,7 @@
               <option value ="{{this.id}}">{{this.name}}</option>
               {{/each}}
               </select>
+              Image Link: <input type="text" class="form-control" value="{{rows.productsimg}}" name="productsimg">
               <br>
               <br>
                <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;UPDATE </button>
