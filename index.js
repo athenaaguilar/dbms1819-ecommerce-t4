@@ -225,7 +225,7 @@ app.post('/insertbrand', function(req, res) {
 	res.redirect('/brands');
 });
 app.post('/updateproduct/:id', function(req, res) {
-	client.query("UPDATE products SET name = '"+req.body.productsname+"', descriptions = '"+req.body.productsdesc+"', tagline = '"+req.body.productstag+"', price = '"+req.body.productsprice+"', warranty = '"+req.body.productswarranty+"',category_id = '"+req.body.category+"', brand_id = '"+req.body.brand+"' WHERE id = '"+req.params.id+"' ;");
+	client.query("UPDATE products SET name = '"+req.body.productsname+"', descriptions = '"+req.body.productsdesc+"', tagline = '"+req.body.productstag+"', price = '"+req.body.productsprice+"', warranty = '"+req.body.productswarranty+"',category_id = '"+req.body.category+"', brand_id = '"+req.body.brand+"', img = '"+req.body.productsimg+"'WHERE id = '"+req.params.id+"' ;");
 	client.query("UPDATE products_brand SET description = '"+req.body.branddesc+"' WHERE id ='"+req.params.id+"';");
 	
 	res.redirect('/store');
