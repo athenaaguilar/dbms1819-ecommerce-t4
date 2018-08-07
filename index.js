@@ -58,7 +58,7 @@ app.get('/products/:id', function(req, res) {
 
 app.get('/store',(req, res)=>{
 	
-	 client.query('SELECT * FROM products;')
+	 client.query('SELECT * FROM products ORDER by id ASC;')
 	.then((results)=>{
 	    console.log('results?', results);
 		res.render('store', results);
