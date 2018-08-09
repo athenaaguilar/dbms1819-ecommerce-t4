@@ -39,9 +39,14 @@ CREATE TABLE customer_fav_products (
 );
 
 
+
+
 SELECT products.id , products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname
 FROM products
 INNER JOIN products_brand ON products.brand_id=products_brand.id
 INNER JOIN products_category ON products.category_id=products_category.id;
 
 client.query('SELECT products.id AS productsid,products.img AS productsimg,products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname FROM products WHERE id = 1 INNER JOIN products_brand ON products.brand_id=products_brand.id INNER JOIN products_category ON products.category_id=products_category.id;')
+
+INSERT INTO customer (email, first_name, last_name) VALUES ('aaa', 'Example', 'User') ON CONFLICT (email) DO UPDATE SET first_name = ('ralph') WHERE email = 'athena';
+  
