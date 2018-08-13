@@ -17,16 +17,10 @@
         <td>{{this.lname}}</td>
         <td>{{this.email}}</td>
         <td>{{this.product}}</td>
-        <td >{{this.qty}}</td>
-        <td id = "date"></td>
+        <td>{{this.qty}}</td>
+        <td>{{this.orderdate}}</td>
       </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
-
-<script>
-  var today = new Date();
-var date = today.setHours(today.getHours() + 8);
-document.getElementById("date").innerText = today.toString() ;
-</script>
