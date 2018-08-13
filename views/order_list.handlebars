@@ -17,8 +17,8 @@
         <td>{{this.lname}}</td>
         <td>{{this.email}}</td>
         <td>{{this.product}}</td>
-        <td id = "date">{{this.qty}}</td>
-        <td>{{this.orderdate}}</td>
+        <td >{{this.qty}}</td>
+        <td id = "date"></td>
       </tr>
       {{/each}}
     </tbody>
@@ -26,7 +26,7 @@
 </div>
 
 <script>
-  var today = document.getElementById("date").innerText;
-today.setHours(today.getHours() + 8);
-document.getElementById("date").innerText = today;
+  var today = new Date('Mon Aug 13 2018 04:15:09 GMT+0000 (UTC)');
+var date = today.setHours(today.getHours() + 8);
+document.getElementById("date").innerText = today.toString() ;
 </script>
