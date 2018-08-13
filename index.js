@@ -178,7 +178,7 @@ app.get('/product/update/:id', function(req, res) {
 	});
 
 app.get('/customers', function(req, res) {
-		 client.query('SELECT * FROM customer ORDER BY id DESC')
+    client.query('SELECT * FROM customer ORDER BY id DESC')
 	.then((result)=>{
 	    console.log('results?', result);
 		res.render('customer_list', result);
