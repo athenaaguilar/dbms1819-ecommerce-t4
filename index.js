@@ -238,7 +238,7 @@ app.post('/insertproduct', function (req, res) {
   client.query("INSERT INTO products (name,descriptions,tagline,price,warranty,category_id,brand_id,img) VALUES ('" + req.body.name + "', '" + req.body.description + "', '" + req.body.tagline + "', '" + req.body.price + "', '" + req.body.warranty + "', '" + req.body.category + "', '" + req.body.brand + "','" + req.body.image + "')")
     .then((result) => {
       console.log('INSERTED');
-      res.redirect('/products');
+      res.redirect('/store');
       })
     .catch((err) => {
       console.log('error', err);
