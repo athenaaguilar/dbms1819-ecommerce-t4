@@ -1,47 +1,141 @@
-<div class="container">
-  <p class="white-text">CUSTOMER DETAILS:</p>
-  <table class="table table-striped table-dark table-hover text-center">
-    <thead>
-      <tr>
-        <th>FIRSTNAME</th>
-        <th>LASTNAME</th>
-        <th>EMAIL</th>
-        <th>STREET</th>
-        <th>MUNICIPALITY</th>
-        <th>PROVINCE</th>
-        <th>ZIP CODE</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{rows.0.fname}}</td>
-        <td>{{rows.0.lname}}</td>
-        <td>{{rows.0.email}}</td>
-        <td>{{rows.0.street}}</td>
-        <td>{{rows.0.mun}}</td>
-        <td>{{rows.0.province}}</td>
-        <td>{{rows.0.zip}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <hr>
-  <p class="white-text">ORDER DETAILS:</p>
-  <table class="table table-striped table-dark table-hover text-center">
-    <thead>
-      <tr>
-        <th>ORDERED PRODUCTS</th>
-        <th>QUANTITY</th>
-        <th>ORDER DATE</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each rows}}
-      <tr>
-        <td>{{this.product}}</td>
-        <td>{{this.qty}}</td>
-        <td>{{this.orderdate}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+
+    <div class="container-fluid">
+      <div class="row">
+       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/admin">
+                  <span data-feather="home"></span>
+                  Dashboard <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/orders">
+                  <span data-feather="file"></span>
+                  Orders
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/categories">
+                  <span data-feather="file"></span>
+                  Category
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/productlist">
+                  <span data-feather="shopping-cart"></span>
+                  Products
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/customers">
+                  <span data-feather="users"></span>
+                  Customers
+                </a>
+              </li>
+            </ul>
+            <li class="nav-item">
+                <a class="nav-link" href="/brands">
+                  <span data-feather="users"></span>
+                  Brands
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Create</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="/product/create">
+                  <span data-feather="file-text"></span>
+                  Product
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/brand/create">
+                  <span data-feather="file-text"></span>
+                  Brand
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/category/create">
+                  <span data-feather="file-text"></span>
+                  Category
+                </a>
+              </li>
+            </ul>
+
+             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Update</span>
+              <a class="d-flex align-items-center text-muted" href="#">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="/productlist">
+                  <span data-feather="file-text"></span>
+                  Product
+                </a>
+              </li>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+          <h2>Customer Details</h2>
+          <div class="container">
+            <p class="white-text">CUSTOMER DETAILS:</p>
+            <table class="table table-striped table-dark table-hover text-center">
+              <thead>
+                <tr>
+                  <th>FIRSTNAME</th>
+                  <th>LASTNAME</th>
+                  <th>EMAIL</th>
+                  <th>STREET</th>
+                  <th>MUNICIPALITY</th>
+                  <th>PROVINCE</th>
+                  <th>ZIP CODE</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{rows.0.fname}}</td>
+                  <td>{{rows.0.lname}}</td>
+                  <td>{{rows.0.email}}</td>
+                  <td>{{rows.0.street}}</td>
+                  <td>{{rows.0.mun}}</td>
+                  <td>{{rows.0.province}}</td>
+                  <td>{{rows.0.zip}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+            <p class="white-text">ORDER DETAILS:</p>
+            <table class="table table-striped table-dark table-hover text-center">
+              <thead>
+                <tr>
+                  <th>ORDERED PRODUCTS</th>
+                  <th>QUANTITY</th>
+                  <th>ORDER DATE</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each rows}}
+                <tr>
+                  <td>{{this.product}}</td>
+                  <td>{{this.qty}}</td>
+                  <td>{{this.orderdate}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/css/mdb.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/style.min.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link href="/css/dashboard.css" rel="stylesheet">
 
     <!--font-awesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -70,29 +72,18 @@
     }
 </style>
     <body>
-        <!--HEADER-->
-        <nav class="site-header sticky-top">
-          <div class="container">
-              <img src="https://i.imgur.com/8cDExLL.png" style="width: 7%"><img src="https://www.modexl.net/media/logo/image/demo/sample-logo.png"  style="width: 13%">
-          </div>
-          <div class="container">
-            <a class="pb-2 d-none d-md-inline-block" href="../../" style="font-size:15px"><i class="fa fa-home" style="font-size:15px"></i>&nbsp;HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-            <a class="pb-2 d-none d-md-inline-block" href="/brands" style="font-size:15px"><i class="fas fa-tags" style="font-size:14px"></i>&nbsp;BRANDS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            <a class="pb-2 d-none d-md-inline-block" href="/categories" style="font-size:15px"><i class="fa fa-list-alt" style="font-size:14px"></i>&nbsp;CATEGORY</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            <a class="pb-2 d-none d-md-inline-block" href="/store" style="font-size:15px"><i class="fas fa-shoe-prints" style="font-size:14px"></i>&nbsp;PRODUCTS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            <a class="pb-2 d-none d-md-inline-block" href="/orders" style="font-size:15px"><i class="fas fa-shopping-bag" style="font-size:14px"></i>&nbsp;ORDERS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            <a class="pb-2 d-none d-md-inline-block" href="/customers" style="font-size:15px"><i class="fas fa-users" style="font-size:14px"></i>&nbsp;CUSTOMERS</a>
-          </div>
-            <div class="dropdown">
-              <button class="btn btn-md btn-dark dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CREATE </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="/brand/create">Brand</a>
-                <a class="dropdown-item" href="/category/create">Category</a>
-                <a class="dropdown-item" href="/product/create">Product</a>
-              </div>
-            </div>
-        </nav>
-        <br>
+         <!--HEADER-->
+<nav class="site-header sticky-top">
+  <div class="container">
+      <img src="https://i.imgur.com/8cDExLL.png" style="width: 7%"><img src="https://www.modexl.net/media/logo/image/demo/sample-logo.png"  style="width: 13%">
+  </div>
+  <div class="container">
+    <a class="pb-2 d-none d-md-inline-block" href="../../" style="font-size:15px"><i class="fa fa-home" style="font-size:15px"></i>&nbsp;HOME</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+    <a class="pb-2 d-none d-md-inline-block" href="/store" style="font-size:15px"><i class="fas fa-shoe-prints" style="font-size:14px"></i>&nbsp;PRODUCTS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    <a class="pb-2 d-none d-md-inline-block" href="/admin" style="font-size:15px"><i class="fas fa-users-cog" style="font-size:14px"></i>&nbsp;ADMIN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+  </div>
+
+</nav>
 
         {{{body}}}
 

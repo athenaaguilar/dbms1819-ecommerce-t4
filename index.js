@@ -63,9 +63,24 @@ app.get('/store', (req, res) => {
       res.send('Error!');
     });
 });
-
+app.get('/productlist', (req, res) => {
+  client.query('SELECT * FROM products ORDER by id ASC;')
+    .then((results) => {
+      console.log('results?', results);
+      res.render('product_list', results);
+    })
+    .catch((err) => {
+      console.log('error', err);
+      res.send('Error!');
+    });
+});
 app.get('/brand/create', function (req, res) {
   res.render('create_brand', {
+  });
+});
+
+app.get('/admin', function (req, res) {
+  res.render('admin', {
   });
 });
 
