@@ -4,6 +4,9 @@ const exphbs = require('express-handlebars');
 const { Client } = require('pg');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const Handlebars = require("handlebars");
+const MomentHandler = require("handlebars.moment");
+MomentHandler.registerHelpers(Handlebars);
 const client = new Client({
   database: 'd2t940tht305hl',
   user: 'ghopovwglmxpmf',
@@ -24,6 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+const Product = require('./models/product');
+const Brand = require('./models/brand');
+const Order = require('./models/order');
+const Category = require('./models/category');
 
 app.get('/', function (req, res) {
   res.render('home', { });
@@ -34,16 +41,7 @@ app.get('/products/:id', function (req, res) {
     .then((results) => {
       console.log('results?', results);
       res.render('product', {
-        name: results.rows[0].productsname,
-        description: results.rows[0].productsdesc,
-        tagline: results.rows[0].productstag,
-        price: results.rows[0].productsprice,
-        warranty: results.rows[0].productswarranty,
-        img: results.rows[0].productsimg,
-        brandname: results.rows[0].productsbrand,
-        branddesc: results.rows[0].branddesc,
-        category: results.rows[0].categoryname,
-        id: results.rows[0].productsid
+        product: results.rows,
       });
     })
     .catch((err) => {
@@ -53,26 +51,18 @@ app.get('/products/:id', function (req, res) {
 });
 
 app.get('/store', (req, res) => {
-  client.query('SELECT * FROM products ORDER by id ASC;')
-    .then((results) => {
-      console.log('results?', results);
-      res.render('store', results);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
+  Product.list(client,{},function(product){
+    res.render('store',{
+      product: product
     });
+  });
 });
 app.get('/productlist', (req, res) => {
-  client.query('SELECT * FROM products ORDER by id ASC;')
-    .then((results) => {
-      console.log('results?', results);
-      res.render('product_list', results);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
+  Product.list(client,{},function(product){
+    res.render('product_list',{
+      product: product
     });
+  });
 });
 app.get('/brand/create', function (req, res) {
   res.render('create_brand', {
@@ -90,57 +80,34 @@ app.get('/category/create', function (req, res) {
 });
 
 app.get('/product/create', function (req, res) {
-  var category = [];
-  var brand = [];
-  var both = [];
-  client.query('SELECT * FROM products_brand')
-    .then((result) => {
-      brand = result.rows;
-      console.log('brand:', brand);
-      both.push(brand);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
-    });
-  client.query('SELECT * FROM products_category')
-    .then((result) => {
-      category = result.rows;
-      both.push(category);
-      console.log(category);
-      console.log(both);
-      res.render('create_product', {
-        rows: both
+  var brand;
+  var category;
+  Brand.list(client,{},function(brands){
+     brand = brands;
+  });
+ Category.list(client,{},function(category){
+      res.render('create_product',{
+        category: category,
+        brand1: brand
       });
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
-    });
-});
+    }); 
+     
+  });
 
 app.get('/brands', function (req, res) {
-  client.query('SELECT * FROM products_brand')
-    .then((result) => {
-      console.log('results?', result);
-      res.render('brand_list', result);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
+  Brand.list(client,{},function(brands){
+    res.render('brand_list',{
+      brands: brands
     });
+  });
 });
 
 app.get('/categories', function (req, res) {
-  client.query('SELECT * FROM products_category')
-    .then((result) => {
-      console.log('results?', result);
-      res.render('category_list', result);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
+  Category.list(client,{},function(category){
+    res.render('category_list',{
+      category: category
     });
+  });
 });
 
 app.get('/product/update/:id', function (req, res) {
@@ -205,15 +172,11 @@ app.get('/customers/:id', function (req, res) {
 });
 
 app.get('/orders', function (req, res) {
-  client.query('SELECT customer.first_name AS fname,customer.last_name AS lname,customer.email AS email,products.name AS product,orders.quantity AS qty,orders.order_date AS orderdate FROM orders INNER JOIN customer ON customer.id=orders.customer_id INNER JOIN products ON products.id=orders.product_id ORDER BY orderdate DESC;')
-    .then((result) => {
-      console.log('results?', result);
-      res.render('order_list', result);
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
+  Order.list(client,{},function(orders){
+    res.render('order_list',{
+      orders: orders
     });
+  });
 });
 
 app.post('/send-email', function (req, res) {
@@ -250,48 +213,60 @@ app.post('/send-email', function (req, res) {
 });
 
 app.post('/insertproduct', function (req, res) {
-  client.query("INSERT INTO products (name,descriptions,tagline,price,warranty,category_id,brand_id,img) VALUES ('" + req.body.name + "', '" + req.body.description + "', '" + req.body.tagline + "', '" + req.body.price + "', '" + req.body.warranty + "', '" + req.body.category + "', '" + req.body.brand + "','" + req.body.image + "')")
-    .then((result) => {
+  Product.create(client,{
+    product_name: req.body.name,
+    product_desc: req.body.description,
+    product_tagline: req.body.tagline,
+    product_price: req.body.price,
+    product_warranty: req.body.warrranty,
+    product_category: req.body.category,
+    product_brand: req.body.brand,
+    product_image: req.body.image
+  },function(product){
+    if(product == 'SUCCESS'){
       console.log('INSERTED');
-      res.redirect('/store');
-      })
-    .catch((err) => {
-      console.log('error', err);
+      res.redirect('/store');}
+    else if (product == 'ERROR'){
       res.render('error',{
       error : 'PRODUCT',
       page : 'product'
       });
-    });
+    }
+  });
 });
 
 app.post('/insertcategory', function (req, res) {
-  client.query("INSERT INTO products_category (name) VALUES ('" + req.body.name + "')")
-    .then((result) => {
+  Category.create(client,{
+    category_name: req.body.name
+  },function(category){
+    if(category == 'SUCCESS'){
       console.log('INSERTED');
-      res.redirect('/categories');
-      })
-    .catch((err) => {
-      console.log('error', err);
+      res.redirect('/categories');}
+    else if (category == 'ERROR'){
       res.render('error',{
       error : 'CATEGORY',
       page : 'category'
       });
-    });
+    }
+  });
 });
 
 app.post('/insertbrand', function (req, res) {
-  client.query("INSERT INTO products_brand (name,description) VALUES ('" + req.body.name + "','" + req.body.description + "')")
-    .then((result) => {
+  Brand.create(client,{
+    brand_name: req.body.name,
+    brand_desc: req.body.description
+      },function(brand){
+    if(brand == 'SUCCESS'){
       console.log('INSERTED');
-      res.redirect('/brands');
-      })
-    .catch((err) => {
-      console.log('error', err);
+      res.redirect('/brands');}
+    else if (brand == 'ERROR'){
       res.render('error',{
       error : 'BRAND',
       page : 'brand'
       });
-    });
+    }
+  });
+
 });
 app.post('/updateproduct/:id', function (req, res) {
   client.query("UPDATE products SET name = '" + req.body.productsname + "', descriptions = '" + req.body.productsdesc + "', tagline = '" + req.body.productstag + "', price = '" + req.body.productsprice + "', warranty = '" + req.body.productswarranty + "',category_id = '" + req.body.category + "', brand_id = '" + req.body.brand + "', img = '" + req.body.productsimg + "'WHERE id = '" + req.params.id + "' ;");
@@ -299,12 +274,7 @@ app.post('/updateproduct/:id', function (req, res) {
 
   res.redirect('/store');
 });
-app.post('/updateproduct/:id', function (req, res) {
-  client.query("UPDATE products SET name = '" + req.body.productsname + "', descriptions = '" + req.body.productsdesc + "', tagline = '" + req.body.productstag + "', price = '" + req.body.productsprice + "', warranty = '" + req.body.productswarranty + "',category_id = '" + req.body.category + "', brand_id = '" + req.body.brand + "', img = '" + req.body.productsimg + "'WHERE id = '" + req.params.id + "' ;");
-  client.query("UPDATE products_brand SET description = '" + req.body.branddesc + "' WHERE id ='" + req.params.id + "';");
 
-  res.redirect('/store');
-});
 app.post('/send-orders', function (req, res) {
   client.query("INSERT INTO customer (email, first_name, last_name,street,municipality,province,zipcode) VALUES ('" + req.body.email + "', '" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.street + "', '" + req.body.mun + "', '" + req.body.province + "', '" + req.body.zip + "') ON CONFLICT (email) DO UPDATE SET first_name = ('" + req.body.fname + "'), last_name = ('" + req.body.lname + "'), street = ('" + req.body.street + "'),municipality = ('" + req.body.mun + "'),province = ('" + req.body.province + "'),zipcode = ('" + req.body.zip + "') WHERE customer.email ='" + req.body.email + "';");
   client.query("SELECT id from customer WHERE email = '" + req.body.email + "';")

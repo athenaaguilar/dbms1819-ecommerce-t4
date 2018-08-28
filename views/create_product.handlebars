@@ -119,7 +119,7 @@
                   Category: <br>
                   <div class="form-group">
                     <select class="form-control" name="category" required >
-                      {{#each rows.[1]}}
+                      {{#each category}}
                       <option value ="{{this.id}}">{{this.name}}</option>
                       {{/each}}
                     </select>
@@ -128,7 +128,7 @@
                  Brand: <br>
                   <div class="form-group">
                     <select class="form-control" name="brand" required>
-                      {{#each rows.[0]}}
+                      {{#each brand1}}
                       <option value ="{{this.id}}">{{this.name}}</option>
                       {{/each}}
                     </select>
