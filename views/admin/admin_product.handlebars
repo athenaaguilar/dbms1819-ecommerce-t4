@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+    {{#each product}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">{{productsname}}</h2><hr>
+      <!--BODY-->
+      <br>
+      <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-11 col-sm-11 col-xs-11 mr-sm-3 mb-3 p-1 bg-dark overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
+            <div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-7">
+                    <div class="mx-auto view overlay" style="width: 80%; border-radius: 0 0 20px 0"><br>
+                      <img type="button" data-toggle="modal" data-target="#product_image" style="width:100%; border-radius: 0 0 20px 0" src="{{productsimg}}" class="img-fluid" alt="">
+                    </div><br>
+                  </div>
+                  <div class="col-sm-5">
+                    <ul style="display: inline; text-decoration: none">
+                      <li>Name: <i>{{productsname}}</i></li>
+                      <li>Description: <i>{{productsdesc}}</i></li>
+                      <li>Tagline: <i>{{productstag}}</i></li>
+                      <li>Price: <i>{{productsprice}}</i></li>
+                      <li>Warranty: <i>{{productswarranty}}</i></li>
+                      <li>Brand name: <i>{{productsbrand}}</i></li>
+                      <li>Brand Description: <i>{{branddesc}}</i></li>
+                      <li>Category: <i>{{categoryname}}</i></li>
+                      <hr style="background-color: #66686b">
+                    </ul>
+                    <div class="pull-down">
+                      <a href="/admin/product/update/{{productsid}}"><button type="button" class="btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="font-size:15px;"></i>&nbsp;&nbsp;Update</button></a>
+
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!--MODAL-IMAGE-->
+<div class="modal fade" id="product_image" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" style="width:95%;">
+      <img style="width:100%;" src="{{productsimg}}">
+    </div>
+  </div>
+</div>
+{{/each}}
+
+<!--FOR SHOW-MODAL-->
+<script type="text/javascript">
+$('#customer_details').on('show.bs.modal', function (event) {
+  var modal = $(this)
+  modal.find('.modal-title').text('{{name}}')
+})
+</script>

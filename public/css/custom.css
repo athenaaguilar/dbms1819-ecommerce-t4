@@ -1,0 +1,50 @@
+.nav-navbar > li {
+    margin-top: 15px;
+    margin-left:20px;
+}
+
+* {
+    text-decoration: none;
+    margin: 0px;
+    font-family: "Lucida Console", Times, serif;
+}
+html, body {
+    height: 100%;
+}
+.btn {
+    border-radius: 0;
+}
+.btn-md {
+    border-width: 0;
+    outline: none;
+    border-radius: 0;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+    cursor: pointer;
+}    
+h3 {
+    text-align: center;margin:40px;
+}
+body {
+    background-image: linear-gradient(to left top, #403d46, #374758, #1c5360, #0e5d55, #37643c);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+li
+{
+    display: block;
+    line-height: 30px;
+    font-size: 18px;
+}
+.pull-down {
+    position:absolute;
+    right:0;
+    bottom:0;
+}
+.text-primary{
+    color:#0275d8 !important;
+}
+a.text-primary:focus, a.text-primary:hover, a.text-primary:active{
+    text-decoration: underline !important;
+    color: #025aa5 !important;
+}

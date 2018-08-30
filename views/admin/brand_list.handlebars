@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">Brands</h2><hr>
+      <div class="container">
+       <table class="table table-striped table-dark table-hover text-center">
+          <thead>
+            <tr>
+              <th>BRANDS</th>
+              <th>DESCRIPTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each brands}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>{{this.description}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+

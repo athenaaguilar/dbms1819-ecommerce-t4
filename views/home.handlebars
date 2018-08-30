@@ -1,15 +1,15 @@
-
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column white-text">
+{{> header }}
+<div id="home" class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column white-text">
   <header role="main" class="inner cover"><br><br>
     <h1 class="cover-heading text-center" style="font-size: 80px;">WELCOME!</h1>
     <hr><br>
-    <p class="lead text-center"><i><strong>“One can have no smaller or greater mastery than mastery of oneself.”</strong></i></p>
-    <p class="text-center"><i>- Leonardo Da Vinci</i></p>
+    <p class="lead text-center"><i><strong>“I still have my feet on the ground, I just wear better shoes.”</strong></i></p>
+    <p class="text-center"><i>- Oprah Winfrey</i></p>
     <br><hr><br>
-    <div class="text-center">
-      <a href="/store" type="button" class="btn btn-lg btn-dark"><i class="fa fa-shopping-cart" style="font-size:20px;"></i>&nbsp;&nbsp;SHOP</a>
+    <div class="text-center container">
+        <a href="/user"><button type="button" class="btn btn-primary"><i class="fa fa-user"></i> User</button></a>
+        <a href="/admin"><button type="button" class="btn btn-success"><i class="fa fa-user-cog"></i> Admin</button></a>
     </div>
-    </p>
   </header>
 </div>
-
+{{> footer }}
