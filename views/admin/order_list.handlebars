@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">Orders</h2><hr>
+      <div class = "container">
+        <div class="table-responsive">
+         <table class="table table-striped table-dark table-hover text-center">
+            <thead>
+              <tr>
+                <th>FIRSTNAME</th>
+                <th>LASTNAME</th>
+                <th>EMAIL</th>
+                <th>PRODUCT</th>
+                <th>QUANTITY</th>
+                <th>ORDER DATE</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each orders}}
+              <tr>
+                <td>{{this.fname}}</td>
+                <td>{{this.lname}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.product}}</td>
+                <td>{{this.qty}}</td>
+                <td>{{this.orderdate}}</td>
+                <td>
+                  <a class="table-row text-primary" data-href="/admin/order/delete/{{orderid}}"><button class="btn btn-xs" style="color: #EC2900"><i class="fa fa-trash"></i></button></a>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

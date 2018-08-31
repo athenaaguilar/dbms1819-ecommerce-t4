@@ -1,0 +1,23 @@
+{{> header_user }}
+<br>
+<div class="container">
+  <div class="row justify-content-center">
+  {{#each product}}
+    <div class="col-md-3 col-sm-6 col-xs-9 mr-sm-3 mb-3 pt-3 bg-dark text-center overflow-hidden" style="color: #abb; border-radius: 5px; box-shadow: 4px 4px #112;">
+      <div>
+        <h5 class="display-5">{{this.name}}</h5>
+        <p><i class="fas fa-hashtag" style="font-size:12px"></i>{{this.tagline}}</p>
+        <hr style="background-color: #66686b">
+        <div class="mx-auto view overlay" style="width: 80%; border-radius: 0 0 20px 0" onclick="location.href='/products/{{this.id}}'">
+          <img style="width:100%; border-radius: 0 0 20px 0" src="{{this.img}}" class="img-fluid" alt="">
+            <div class="mask flex-center rgba-blue-light">
+              <p class="white-text" style="font-size: 15px">{{this.name}}</p>
+            </div>
+        </div><br>
+      </div>
+    </div>
+  {{/each}}
+  </div>
+</div>
+{{> footer }}
+

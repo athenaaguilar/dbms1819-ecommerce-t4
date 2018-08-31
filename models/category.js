@@ -17,11 +17,38 @@ var Category = {
         SELECT
           *
         FROM
-          products_category
+          products_category ORDER by id ASC
       `;
       client.query(categoryListQuery,(req,result)=>{
       //  console.log(result.rows)
         callback(result.rows)
+      });
+    },
+    getById: (client,id,callback) => {
+      const categoryListQuery =  `
+        SELECT
+          *
+        FROM
+          products_category 
+        WHERE
+          id = '${id.categoryId}'
+      `;
+      client.query(categoryListQuery,(req,result)=>{
+       console.log(result.rows)
+        callback(result.rows)
+      });
+    },
+    update: (client,categoryId,categoryData,callback) => {
+      const categoryListQuery =  `
+        UPDATE
+          products_category
+        SET
+          name = '${categoryData.name}'
+        WHERE id = '${categoryId.categoryId}'
+      `;
+      client.query(categoryListQuery,(req,result)=>{
+      //  console.log(result.rows)
+        callback(result)
       });
     }
 };
