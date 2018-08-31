@@ -113,7 +113,11 @@ app.get('/admin/products/:id', function (req, res) {
       console.log('error', err);
       res.send('Error!');
     });
+<<<<<<< HEAD
 }); 
+=======
+});
+>>>>>>> 835227d2de9c26dcbf5eae555e85e94b0a86b1eb
 
 app.get('/admin/brands', function (req, res) {
   Brand.list(client,{},function(brands){
@@ -141,6 +145,7 @@ app.get('/admin/customers', function (req, res) {
       console.log('error', err);
       res.send('Error!');
     });
+<<<<<<< HEAD
 });
 
 app.get('/admin/customers/:id', function (req, res) {
@@ -155,6 +160,22 @@ app.get('/admin/customers/:id', function (req, res) {
     });
 });
 
+=======
+});
+
+app.get('/admin/customers/:id', function (req, res) {
+  client.query("SELECT customer.first_name AS fname,customer.last_name AS lname,customer.email AS email,customer.street AS street,customer.municipality AS mun,customer.province AS province,customer.zipcode AS zip,products.name AS product,orders.quantity AS qty,orders.order_date AS orderdate FROM orders INNER JOIN customer ON customer.id=orders.customer_id INNER JOIN products ON products.id=orders.product_id WHERE customer.id = '" + req.params.id + "'ORDER BY orderdate DESC ")
+    .then((result) => {
+      console.log('results?', result);
+      res.render('admin/customer_details', result);
+    })
+    .catch((err) => {
+      console.log('error', err);
+      res.send('Error!');
+    });
+});
+
+>>>>>>> 835227d2de9c26dcbf5eae555e85e94b0a86b1eb
 app.get('/admin/orders', function (req, res) {
   Order.list(client,{},function(orders){
     res.render('admin/order_list',{
@@ -224,6 +245,7 @@ app.get('/admin/product/update/:id', function (req, res) {
       res.send('Error!');
     });
 });
+<<<<<<< HEAD
 
 app.get('/admin/brand/update/:id', function (req, res) {
      Brand.getById(client,{brandId: req.params.id},function(brand){
@@ -240,6 +262,8 @@ app.get('/admin/category/update/:id', function (req, res) {
     });
   });
 });
+=======
+>>>>>>> 835227d2de9c26dcbf5eae555e85e94b0a86b1eb
 //admin--------------------------------------------
 
 app.post('/send-email', function (req, res) {
