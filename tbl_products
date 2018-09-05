@@ -48,7 +48,6 @@ client.query('SELECT products.id AS productsid,products.img AS productsimg,produ
 
 INSERT INTO customer (email, first_name, last_name) VALUES ('aaa', 'Example', 'User') ON CONFLICT (email) DO UPDATE SET first_name = ('ralph') WHERE email = 'athena';
   
-<<<<<<< HEAD
 SELECT
  customer_id, customer.first_name, customer.last_name,
  COUNT (customer_id)
@@ -68,14 +67,3 @@ FROM
 GROUP BY
  customer_id,products.name,orders.product_id
  
-  SELECT
- product_id, products.name,
- COUNT (product_id)
-FROM
- orders
- inner join products on products.id = orders.product_id
-GROUP BY
- customer_id,products.name,orders.product_id
- 
-=======
->>>>>>> 5767731b498741800b94cff4596ec306dd54ecac

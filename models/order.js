@@ -107,6 +107,4 @@ var Order = {
     }
 };
 
-    }
-};
 module.exports = Order;

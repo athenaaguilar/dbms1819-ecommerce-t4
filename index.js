@@ -35,8 +35,8 @@ const Product = require('./models/product');
 const Brand = require('./models/brand');
 const Order = require('./models/order');
 const Category = require('./models/category');
-
 const Customer = require('./models/customer');
+
 
 //home---------------------------------------------
 app.get('/', function (req, res) {
@@ -95,7 +95,6 @@ app.get('/admin', function (req, res) {
   });
 });
 
-
 app.get('/admin/dashboard', function (req, res) {
   var top10CustomerOrder;
   var top10MostOrderedProducts;
@@ -146,7 +145,6 @@ app.get('/admin/dashboard', function (req, res) {
     });
   });
 });
-
 
 
 app.get('/admin/productlist', (req, res) => {
