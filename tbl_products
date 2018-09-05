@@ -67,3 +67,12 @@ FROM
 GROUP BY
  customer_id,products.name,orders.product_id
  
+  SELECT
+ product_id, products.name,
+ COUNT (product_id)
+FROM
+ orders
+ inner join products on products.id = orders.product_id
+GROUP BY
+ customer_id,products.name,orders.product_id
+ 
