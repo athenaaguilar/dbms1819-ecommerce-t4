@@ -149,8 +149,53 @@
             </div>
           </div><!--second row-->
         </div>
+
         <hr>
         <!--third row-->
+          <div class="container">
+          <div class="row">
+            <!--tables-->
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Total Sales </h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #d1c55c">
+                  <thead>
+                    <tr>
+                      <th>LAST 7 DAYS</th>
+                      <th>LAST 30 DAYS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                    <tr>
+                      <td>PHP {{totalsales7days}}</td>
+                      <td>PHP {{totalsales30days}}</td>
+                    </tr>
+      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Daily Order Counts</h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #ff7c83">
+                  <thead>
+                    <tr>
+                      <th>ORDER COUNTS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{dailyordercount}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!--third row-->
+        </div>
+        <!--fourth row-->
         <div class="container">
           <div class="row">
             <!--bar graphs-->
@@ -158,7 +203,7 @@
               <h5>Top 3 Most Ordered Brands</h5><br>
               <input type="hidden" id="brand1name" value ="{{top1BrandName}}">
               <input type="hidden" id="brand2name" value ="{{top2BrandName}}">
-              <input type="hidden" id="brand3name" value ="{{top2BrandName}}">
+              <input type="hidden" id="brand3name" value ="{{top3BrandName}}">
               <input type="hidden" id="brand1count" value ="{{top1BrandOrder}}">
               <input type="hidden" id="brand2count" value ="{{top2BrandOrder}}">
               <input type="hidden" id="brand3count" value ="{{top3BrandOrder}}">
@@ -318,7 +363,7 @@
               </script>
             </div>
           </div>
-        </div><!--third row-->
+        </div><!--fourth row-->
         <hr>
       </div>
     </main>

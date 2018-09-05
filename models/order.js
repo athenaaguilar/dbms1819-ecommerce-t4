@@ -104,6 +104,49 @@ var Order = {
         console.log(result.rows)
         callback(result.rows)
       });
+    },
+    totalSales7days: (client,filter,callback) => {
+      const query =  `
+        SELECT  SUM (orders.quantity * products.price) as total
+          FROM
+           orders
+           inner join products on products.id = orders.product_id
+           inner join customer on customer.id = orders.customer_id WHERE order_date BETWEEN CURRENT_DATE - INTERVAL '7 days'
+        AND CURRENT_DATE + INTERVAL '1 days'
+ 
+      `;
+      client.query(query,(req,result)=>{
+        console.log('7days',result.rows)
+        callback(result.rows)
+      });
+    },
+    totalSales30days: (client,filter,callback) => {
+      const query =  `
+        SELECT  SUM (orders.quantity * products.price) as total
+          FROM
+           orders
+           inner join products on products.id = orders.product_id
+           inner join customer on customer.id = orders.customer_id WHERE order_date BETWEEN CURRENT_DATE - INTERVAL '30 days'
+        AND CURRENT_DATE + INTERVAL '1 days'
+ 
+      `;
+      client.query(query,(req,result)=>{
+        console.log(result.rows)
+        callback(result.rows)
+      });
+    },
+    dailyOrderCount: (client,filter,callback) => {
+      const query =  `
+      SELECT  COUNT (orders.id)
+          FROM
+           orders
+      WHERE order_date BETWEEN CURRENT_DATE - INTERVAL '1 days'
+        AND CURRENT_DATE + INTERVAL '1 days'
+      `;
+      client.query(query,(req,result)=>{
+        console.log(result.rows)
+        callback(result.rows)
+      });
     }
 };
 

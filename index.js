@@ -101,7 +101,18 @@ app.get('/admin/dashboard', function (req, res) {
   var top10LeastOrderedProduct;
   var top10CustomerHighestPayment;
   var top3OrderedBrand;
-  var top3OrderedCategory;
+  var totalSales7days;
+  var totalSales30days;
+  var dailyOrderCount;
+  Order.dailyOrderCount(client,{},function(result){
+    dailyOrderCount = result
+  });
+    Order.totalSales7days(client,{},function(result){
+    totalSales7days = result
+  });
+    Order.totalSales30days(client,{},function(result){
+    totalSales30days = result
+  });
   Order.top3OrderedBrands(client,{},function(result){
       top3OrderedBrand = result
   });
@@ -141,7 +152,10 @@ app.get('/admin/dashboard', function (req, res) {
       top3CategoryName : top3OrderedCategory[2].name,
       top1CategoryOrder : top3OrderedCategory[0].sum,
       top2CategoryOrder : top3OrderedCategory[1].sum,
-      top3CategoryOrder : top3OrderedCategory[2].sum
+      top3CategoryOrder : top3OrderedCategory[2].sum,
+      totalsales30days : totalSales30days[0].total,
+      totalsales7days : totalSales7days[0].total,
+      dailyordercount : dailyOrderCount[0].count
     });
   });
 });
