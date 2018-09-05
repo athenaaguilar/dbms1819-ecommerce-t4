@@ -22,7 +22,6 @@ var Order = {
         console.log(result.rows)
         callback(result.rows)
       });
-<<<<<<< HEAD
     },
     top10CustomerOrder: (client,filter,callback) => {
       const query =  `
@@ -108,8 +107,6 @@ var Order = {
     }
 };
 
-=======
     }
 };
->>>>>>> 5767731b498741800b94cff4596ec306dd54ecac
 module.exports = Order;
