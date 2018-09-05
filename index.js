@@ -35,8 +35,11 @@ const Product = require('./models/product');
 const Brand = require('./models/brand');
 const Order = require('./models/order');
 const Category = require('./models/category');
+<<<<<<< HEAD
 const Customer = require('./models/customer');
 
+=======
+>>>>>>> 5767731b498741800b94cff4596ec306dd54ecac
 
 //home---------------------------------------------
 app.get('/', function (req, res) {
@@ -95,6 +98,7 @@ app.get('/admin', function (req, res) {
   });
 });
 
+<<<<<<< HEAD
 app.get('/admin/dashboard', function (req, res) {
   var top10CustomerOrder;
   var top10MostOrderedProducts;
@@ -147,6 +151,8 @@ app.get('/admin/dashboard', function (req, res) {
 });
 
 
+=======
+>>>>>>> 5767731b498741800b94cff4596ec306dd54ecac
 app.get('/admin/productlist', (req, res) => {
   Product.list(client,{},function(product){
     res.render('admin/product_list',{
