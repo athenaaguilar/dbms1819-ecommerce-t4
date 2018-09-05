@@ -1,0 +1,326 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column white-text">
+        <!--dashboard-->
+        <h2 class="white-text">Dashboard</h2><hr>
+        <!--pie-->
+        <div class="container">
+          <div class="row">
+            <!--pie chart-->
+            <div class="col-md-6">
+              <div id="piechart_3d" width="100%"></div>
+              <script>
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+                
+              // Draw the chart and set the chart values
+              function drawChart() {
+                  var data = google.visualization.arrayToDataTable
+                  ([
+                  ['Name', 'Numbers'],
+                  ['Customers', 3],
+                  ['Orders', 4],
+                  ['Products', 5], 
+                  ['Brands', 6],
+                  ['Category', 7]
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options =
+                  {
+                    chartArea: {left:0, top:0, bottom:0, right:0},
+                    legend: {position: 'right', alignment: 'center', textStyle: {fontSize: 15, color: 'white'}},
+                    tooltip: {isHtml: true},
+                    backgroundColor: 'transparent',
+                    is3D: true,
+                    slices: {
+                      0:{color: '#4da6ff'}, 
+                      1:{color: '#ffa64d'}, 
+                      2:{color: '#f37274'}, 
+                      3:{color: '#006E51'}, 
+                      4:{color: '#B565A7'}}
+                  };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                chart.draw(data, options);
+              }
+              </script>
+            </div>
+          </div>
+        </div><!--pie-->
+        <hr>
+        <!--first row-->
+        <div class="container">
+          <div class="row">
+            <!--tables-->
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Top 10 Customers with Most No. of Orders</h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #53c6b3">
+                  <thead>
+                    <tr>
+                      <th>CUSTOMERS</th>
+                      <th>NO. OF ORDERS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each top10CustomerOrders}}
+                    <tr>
+                      <td>{{this.first_name}}</td>
+                      <td>{{this.count}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Top 10 Customers with Highest Payment</h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #4c85ff">
+                  <thead>
+                    <tr>
+                      <th>CUSTOMERS</th>
+                      <th>PAYMENTS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each top10CustomerHighestPayments}}
+                    <tr>
+                      <td>{{this.first_name}}  {{this.last_name}}</td>
+                      <td>{{this.sum}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!--first row-->
+        </div>
+        <hr>
+        <!--second row-->
+        <div class="container">
+          <div class="row">
+            <!--tables-->
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Top 10 Most Ordered Products</h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #d1c55c">
+                  <thead>
+                    <tr>
+                      <th>PRODUCTS</th>
+                      <th>NO. OF ORDERS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each top10MostOrderedProducts}}
+                    <tr>
+                      <td>{{this.name}}</td>
+                      <td>{{this.count}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-md-5" style="margin: 0 40px">
+              <h5>Top 10 Least Ordered Products</h5>
+              <div class="row justify-content-center">
+                <table class="table table-striped table-dark table-hover text-center" style="border: 1px solid #ff7c83">
+                  <thead>
+                    <tr>
+                      <th>PRODUCTS</th>
+                      <th>NO. OF ORDERS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each top10LeastOrderedProducts}}
+                    <tr>
+                      <td>{{this.name}}</td>
+                      <td>{{this.count}}</td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div><!--second row-->
+        </div>
+        <hr>
+        <!--third row-->
+        <div class="container">
+          <div class="row">
+            <!--bar graphs-->
+            <div class="col-md-6">
+              <h5>Top 3 Most Ordered Brands</h5><br>
+              <input type="hidden" id="brand1name" value ="{{top1BrandName}}">
+              <input type="hidden" id="brand2name" value ="{{top2BrandName}}">
+              <input type="hidden" id="brand3name" value ="{{top2BrandName}}">
+              <input type="hidden" id="brand1count" value ="{{top1BrandOrder}}">
+              <input type="hidden" id="brand2count" value ="{{top2BrandOrder}}">
+              <input type="hidden" id="brand3count" value ="{{top3BrandOrder}}">
+              <input type="hidden" id="category1name" value ="{{top1CategoryName}}">
+              <input type="hidden" id="category2name" value ="{{top2CategoryName}}">
+              <input type="hidden" id="category3name" value ="{{top3CategoryName}}">
+              <input type="hidden" id="category1count" value ="{{top1CategoryOrder}}">
+              <input type="hidden" id="category2count" value ="{{top2CategoryOrder}}">
+              <input type="hidden" id="category3count" value ="{{top3CategoryOrder}}">
+              <canvas id="myChartBrands"></canvas>
+              <script>
+              var ctx = document.getElementById("myChartBrands").getContext('2d');
+              var brand1Name = document.getElementById('brand1name').value;
+              var brand2Name = document.getElementById('brand2name').value;
+              var brand3Name = document.getElementById('brand3name').value;
+              var brand1Count = parseInt(document.getElementById('brand1count').value);
+              var brand2Count = parseInt(document.getElementById('brand2count').value);
+              var brand3Count = parseInt(document.getElementById('brand3count').value);
+              var category1Name = document.getElementById('category1name').value;
+              var category2Name = document.getElementById('category2name').value;
+              var category3Name = document.getElementById('category3name').value;
+              var category1Count = parseInt(document.getElementById('category1count').value);
+              var category2Count = parseInt(document.getElementById('category2count').value);
+              var category3Count = parseInt(document.getElementById('category3count').value);
+
+              var myChartBrands = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [ brand1Name, brand2Name, brand3Name],
+                    datasets: [{
+                        label: 'Brand',
+                        data: [brand1Count,brand2Count,brand3Count],
+                        backgroundColor:
+                        [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)'
+                        ],
+                        borderColor:
+                        [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options:
+                {
+                  legend: {display: false},
+                  tooltips:
+                  {
+                    enabled: true,
+                    mode: 'single',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    titleFontSize: 14,
+                    cornerRadius: 5, 
+                  },
+                  scales:
+                  {
+                    yAxes:
+                    [{
+                      scaleLabel:
+                      {
+                        display: true,
+                        labelString: 'ORDERS',
+                        fontSize: 15,
+                        padding: 12
+                      },
+                      ticks: {beginAtZero: true}
+                    }],
+                    xAxes:
+                    [{
+                      display: true,
+                      scaleLabel:
+                      {
+                        display: true,
+                        labelString: 'BRAND',
+                        fontSize: 15,
+                        padding: 5
+                      },
+                      ticks: {display: true}
+                    }]
+                  }
+                },
+              });
+              Chart.defaults.global.defaultFontColor = 'white';
+              </script>
+            </div>
+            <div class="col-md-6">
+              <h5>Top 3 Most Ordered Category</h5><br>
+              <canvas id="myChartCategory"></canvas>
+              <script>
+              var ctx = document.getElementById("myChartCategory").getContext('2d');
+              var myChartCategory = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [category1Name, category2Name, category3Name],
+                    datasets: [{
+                        label: 'Brand',
+                        data: [category1Count, category2Count,category3Count],
+                        backgroundColor:
+                        [
+                            'rgba(75, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 159, 64, 0.5)'
+                        ],
+                        borderColor:
+                        [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options:
+                {
+                  legend: {display: false},
+                  tooltips:
+                  {
+                    enabled: true,
+                    mode: 'single',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    titleFontSize: 14,
+                    cornerRadius: 5, 
+                  },
+                  scales:
+                  {
+                    yAxes:
+                    [{
+                      scaleLabel:
+                      {
+                        display: true,
+                        labelString: 'ORDERS',
+                        fontSize: 15,
+                        padding: 12
+                      },
+                      ticks: {beginAtZero: true}
+                    }],
+                    xAxes:
+                    [{
+                      display: true,
+                      scaleLabel:
+                      {
+                        display: true,
+                        labelString: 'CATEGORY',
+                        fontSize: 15,
+                        padding: 5
+                      },
+                      ticks: {display: true}
+                    }]
+                  }
+                },
+              });
+              Chart.defaults.global.defaultFontColor = 'white';
+              </script>
+            </div>
+          </div>
+        </div><!--third row-->
+        <hr>
+      </div>
+    </main>
+  </div>
+</div>

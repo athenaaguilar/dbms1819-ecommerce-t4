@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column white-text">
+        <header role="main" class="inner cover"><br><br>
+          <h1 class="cover-heading text-center" style="font-size: 80px;">DUPLICATION ERROR!</h1>
+          <hr><br>
+          <p class="lead text-center"><i><strong>THE {{error}} YOU HAVE ENTERED ALREADY EXISTS!</p></strong></i>
+          <br><hr><br>
+          <div class="text-center">
+            <a href="/admin/{{page}}/create" type="button" class="btn btn-lg btn-dark"><i class="fa fa-arrow-left" style="font-size:20px;"></i>&nbsp;&nbsp;GO BACK</a>
+          </div>
+          </p>
+        </header>
+      </div>
+    </main>
+  </div>
+</div>
+

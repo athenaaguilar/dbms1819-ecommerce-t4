@@ -1,0 +1,69 @@
+CREATE TABLE products_brand (
+  id SERIAL PRIMARY KEY,
+  name varchar(80),
+  description varchar(250)
+);
+
+
+CREATE TABLE products_category (
+  id SERIAL PRIMARY KEY,
+  name varchar(80)
+);
+
+CREATE TABLE products (
+  id SERIAL PRIMARY KEY,
+  name varchar (80),
+  descriptions varchar(250),
+  tagline varchar(150),
+  price FLOAT(2),
+  warranty int,
+  category_id int references products_category(id),
+  brand_id int references products_brand(id)
+);
+
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  customer_id int references customer(id),
+  product_id int references products(id),
+  quantity int,
+  order_date timestamp  
+);
+
+
+CREATE TABLE customer_fav_products (
+  id SERIAL PRIMARY KEY,
+  customer_id int references customer(id),
+  product_id int references products(id)
+);
+
+
+
+
+SELECT products.id , products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname
+FROM products
+INNER JOIN products_brand ON products.brand_id=products_brand.id
+INNER JOIN products_category ON products.category_id=products_category.id;
+
+client.query('SELECT products.id AS productsid,products.img AS productsimg,products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname FROM products WHERE id = 1 INNER JOIN products_brand ON products.brand_id=products_brand.id INNER JOIN products_category ON products.category_id=products_category.id;')
+
+INSERT INTO customer (email, first_name, last_name) VALUES ('aaa', 'Example', 'User') ON CONFLICT (email) DO UPDATE SET first_name = ('ralph') WHERE email = 'athena';
+  
+SELECT
+ customer_id, customer.first_name, customer.last_name,
+ COUNT (customer_id)
+FROM
+ orders
+ inner join customer on customer.id = orders.customer_id
+GROUP BY
+ customer_id,customer.first_name,customer.last_name
+ ;
+
+ SELECT
+ product_id, products.name,
+ COUNT (product_id)
+FROM
+ orders
+ inner join products on products.id = orders.product_id
+GROUP BY
+ customer_id,products.name,orders.product_id
+ 

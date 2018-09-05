@@ -1,0 +1,42 @@
+<!--pie chart-->
+<div class="col-md-6">
+  <h5>Pie Chart</h5><br>
+  <div id="piechart_3d" width="100%"></div>
+  <script>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+    
+  // Draw the chart and set the chart values
+  function drawChart() {
+      var data = google.visualization.arrayToDataTable
+      ([
+      ['Name', 'Numbers'],
+      ['Customers', 3],
+      ['Orders', 4],
+      ['Products', 5], 
+      ['Brands', 6],
+      ['Category', 7]
+    ]);
+
+    // Optional; add a title and set the width and height of the chart
+    var options =
+      {
+        chartArea: {left:0, top:0, bottom:0, right:0},
+        legend: {position: 'right', alignment: 'center', textStyle: {fontSize: 15, color: 'white'}},
+        tooltip: {isHtml: true},
+        backgroundColor: 'transparent',
+        is3D: true,
+        slices: {
+          0:{color: '#4da6ff'}, 
+          1:{color: '#ffa64d'}, 
+          2:{color: '#f37274'}, 
+          3:{color: '#006E51'}, 
+          4:{color: '#B565A7'}}
+      };
+
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+  }
+  </script>
+</div><!--pie chart-->

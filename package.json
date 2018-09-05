@@ -1,0 +1,20 @@
+{
+  "name": "team4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Ralph Liberato|Athena Aguilar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "*",
+    "handlebars.moment": "^1.0.4",
+    "nodemailer": "^2.7.2",
+    "nodemailer-express-handlebars": "^3.0.0",
+    "pg": "^7.4.3"
+  }
+}

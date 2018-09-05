@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+
+    {{> header_admin }}
+        {{#each brand}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">Update Brand</h2><hr>
+      <div class="modal-body mx-auto white-text" style="width: 80%">
+         <form method="post" action="/admin/update/brand/{{this.id}}">
+            <div class="form-group">
+
+              Brand Name: 
+              <div class="form-group">
+                <input type="text" class="form-control"  value="{{this.name}}" name="name">
+              </div>
+              Description:
+              <div class="form-group">
+                <input type="text" class="form-control"  value="{{this.description}}" name="desc">
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;UPDATE </button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </main>
+    {{/each}}
+  </div>
+</div>

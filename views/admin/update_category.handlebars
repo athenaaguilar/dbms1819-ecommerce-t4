@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row">
+    {{> header_admin }}
+  {{#each category}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">Update Category</h2><hr>
+      <div class="modal-body mx-auto white-text" style="width: 80%">
+         <form method="post" action="/admin/update/category/{{this.id}}">
+            <div class="form-group">
+              Category Name: 
+              <div class="form-group">
+ 
+                  <input class = "form-control"type="text" value ="{{this.name}}" name= "name"required>
+                  
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;UPDATE </button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </main>
+    {{/each}}
+  </div>
+</div>
