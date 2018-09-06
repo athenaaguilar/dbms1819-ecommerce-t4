@@ -36,7 +36,6 @@ var Order = {
 
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -52,7 +51,6 @@ var Order = {
            customer_id,products.name,orders.product_id order by count DESC limit 10
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -68,7 +66,6 @@ var Order = {
            customer_id,products.name,orders.product_id order by count ASC limit 10
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -84,7 +81,6 @@ var Order = {
           products_brand.name order by sum DESC limit 3
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -101,7 +97,6 @@ var Order = {
  
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -116,7 +111,6 @@ var Order = {
  
       `;
       client.query(query,(req,result)=>{
-        console.log('7days',result.rows)
         callback(result.rows)
       });
     },
@@ -131,7 +125,6 @@ var Order = {
  
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     },
@@ -144,7 +137,6 @@ var Order = {
         AND CURRENT_DATE + INTERVAL '1 days'
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     }

@@ -13,7 +13,6 @@ var Customer = {
            customer.first_name,customer.last_name order by sum DESC limit 10
       `;
       client.query(query,(req,result)=>{
-        console.log(result.rows)
         callback(result.rows)
       });
     }
