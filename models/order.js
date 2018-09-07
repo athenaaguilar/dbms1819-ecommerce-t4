@@ -111,7 +111,7 @@ var Order = {
  
       `;
       client.query(query,(req,result)=>{
-        callback(result.rows)a
+        callback(result.rows)
       });
     },
     totalSales30days: (client,filter,callback) => {
