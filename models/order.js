@@ -46,7 +46,7 @@ var Order = {
            COUNT (product_id)
           FROM
            orders
-           inner join productsface on products.id = orders.product_id
+           inner join products on products.id = orders.product_id
           GROUP BY
            customer_id,products.name,orders.product_id order by count DESC limit 10
       `;
