@@ -41,12 +41,12 @@ var Order = {
     },
     top10MostOrderedProducts: (client,filter,callback) => {
       const query =  `
-          SELECT
+          SELECT DISTINCT
            product_id, products.name,
            COUNT (product_id)
           FROM
            orders
-           inner join products on products.id = orders.product_id
+           inner join productsface on products.id = orders.product_id
           GROUP BY
            customer_id,products.name,orders.product_id order by count DESC limit 10
       `;
@@ -56,7 +56,7 @@ var Order = {
     },
     top10LeastOrderedProducts: (client,filter,callback) => {
       const query =  `
-          SELECT
+          SELECT DISTINCT
            product_id, products.name,
            COUNT (product_id)
           FROM
@@ -111,7 +111,7 @@ var Order = {
  
       `;
       client.query(query,(req,result)=>{
-        callback(result.rows)
+        callback(result.rows)a
       });
     },
     totalSales30days: (client,filter,callback) => {
