@@ -9,12 +9,16 @@
   "author": "Ralph Liberato|Athena Aguilar",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-handlebars": "*",
+    "express-session": "^1.15.6",
     "handlebars.moment": "^1.0.4",
     "nodemailer": "^2.7.2",
     "nodemailer-express-handlebars": "^3.0.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.3"
   }
 }

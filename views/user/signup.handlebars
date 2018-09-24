@@ -1,0 +1,47 @@
+
+    {{> header_user }}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <h2 class="white-text">USER SIGNUP</h2><hr>
+      <div class="modal-body mx-auto white-text" style="width: 80%">
+        <form method="post" action="/signup">
+            FIRST NAME
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" placeholder="First Name" name="first_name" required>
+            </div>
+            LAST NAME
+            <div class="form-group">
+              <input type="text" class="form-control" id="name" placeholder="Last Name" name="last_name" required>
+            </div>
+            EMAIL
+            <div class="form-group">
+              <input type="email" class="form-control" id="name" placeholder="Email" name="email" required>
+            </div>
+            PASSWORD <br>
+            <div class="form-group">
+              <input type="password" class="form-control" id="name" placeholder="Password" name="password" required>
+            </div>
+            Street:
+            <div class="form-group">
+              <input type="text" class="form-control" id="street" placeholder="Enter Street Name" name="street" required>
+            </div>          
+            Municipality: <br>
+            <div class="form-group">
+              <input type="text" class="form-control" id="mun" placeholder="Enter Municipality" name="mun" required>
+            </div>
+            Province: <br>
+            <div class="form-group">
+              <input type="text" class="form-control" id="province" placeholder="Enter Province" name="province" required>
+            </div>
+
+            ZipCode: <br>
+            <div class="form-group">
+              <input type="number" class="form-control" id="province" placeholder="Enter ZipCode" name="zip" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;REGISTER</button>
+            </div>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>

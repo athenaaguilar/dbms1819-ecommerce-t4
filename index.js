@@ -6,6 +6,13 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const Handlebars = require("handlebars");
 const MomentHandler = require("handlebars.moment");
+
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const session = require('express-session');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 MomentHandler.registerHelpers(Handlebars);
 const client = new Client({
   database: 'd2t940tht305hl',
@@ -37,25 +44,130 @@ const Order = require('./models/order');
 const Category = require('./models/category');
 const Customer = require('./models/customer');
 
+app.use(session({ secret: 'ilove1234', resave: false, saveUninitialized: false }));
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize()); 
+app.use(passport.session());
 
 //home---------------------------------------------
 app.get('/', function (req, res) {
   res.render('home', { });
 });
 //home---------------------------------------------
+//login--------------------------------------------
+passport.use(new Strategy({
+  usernameField: 'email',
+  passwordField: 'password'
+},
+  function(email, password, cb) {
+    Customer.getByEmail(client,email, function(user) {
+      if (!user) { return cb(null, false); }
+      bcrypt.compare(password, user.password).then(function(res) {
+      if (res == false) { return cb(null, false); }
+      return cb(null, user);
+});
 
+    });
+  }));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  Customer.getById(client,id, function (user) {
+    cb(null, user);
+  });
+});
+
+
+app.get('/login', function (req, res) {
+  res.render('user/login', { });
+})
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/store');
+  });
+//login-------------------------------------------
+
+
+//signup--------------------------------------------
+app.get('/signup', function (req, res) {
+  res.render('user/signup', { });
+});
+app.post('/signup', function (req, res) {
+  bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
+    Customer.signup(client,{
+    email: req.body.email,
+    fName: req.body.first_name,
+    lName: req.body.last_name,
+    street: req.body.street,
+    mun: req.body.mun,
+    prov: req.body.province,
+    zip: req.body.zip,
+    pass: hash,
+    userType: 'user'
+  },function(user){
+
+    if(user == 'SUCCESS'){
+      res.redirect('/store');
+}
+    else if (user == 'ERROR'){
+      res.render('user/error_user',{
+      error : 'USER',
+      page : 'signup'
+      });
+    }
+  });
+});
+
+});
+//signup-------------------------------------------
+
+app.get('/user/update', function (req, res) {
+  Customer.getCustomerData(client,{id: req.user.id},function(user){
+    res.render('user/update_user',{
+      user: user
+    });
+  });
+});
+app.post('/user/update', function (req, res) {
+ bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
+  Customer.update(client,{id: req.user.id},{
+    email: req.body.email,
+    fName: req.body.first_name,
+    lName: req.body.last_name,
+    street: req.body.street,
+    mun: req.body.mun,
+    prov: req.body.province,
+    zip: req.body.zip,
+    pass: hash,
+    userType: 'user'
+
+  },function(user){
+    res.redirect('/store')
+  });
+});
 //user---------------------------------------------
 app.get('/user', (req, res) => {
   res.render('user/welcome_user',{
   });
+ });
 });
-
 app.get('/store', (req, res) => {
+  if (req.isAuthenticated()){
   Product.list(client,{},function(product) {
     res.render('user/store',{
       product: product
     });
   });
+}
+  else{
+    res.redirect('/login');
+  }
 });
 
 app.get('/products/:id', function (req, res) {
@@ -73,11 +185,17 @@ app.get('/products/:id', function (req, res) {
 });
 
 app.get('/brand', function (req, res) {
+  if (req.isAuthenticated()){
+    console.log('Session:',req.user.id);
   Brand.list(client,{},function(brands){
     res.render('user/brand_list',{
       brands: brands
     });
   });
+}
+  else {
+    res.redirect('/login');
+  }
 });
 
 app.get('/category', function (req, res) {
