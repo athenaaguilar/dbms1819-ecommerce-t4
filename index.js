@@ -92,15 +92,14 @@ function isAdmin(req, res, next) {
         return next();
     }
     else{
-      res.send('cannot access!');
+      res.redirect('/store');
     }
   });
   }
   else{
-res.redirect('/login');
+    res.redirect('/login');
+  }
 }
-}
-
 
 app.get('/login', function (req, res) {
   res.render('user/login', { });
@@ -108,10 +107,13 @@ app.get('/login', function (req, res) {
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
-  });
-//login-------------------------------------------
+  res.redirect('/admin');
+});
 
+app.get('/forgotpassword', function (req, res) {
+  res.render('user/forgot_password', { });
+});
+//login-------------------------------------------
 
 //signup--------------------------------------------
 app.get('/signup', function (req, res) {
@@ -132,7 +134,7 @@ app.post('/signup', function (req, res) {
   },function(user){
 
     if(user == 'SUCCESS'){
-      res.redirect('/store');
+      res.redirect('/login');
 }
     else if (user == 'ERROR'){
       res.render('user/error_user',{
@@ -224,7 +226,7 @@ app.get('/category', function (req, res) {
 //user---------------------------------------------
 
 //admin--------------------------------------------
-app.get('/admin', isAdmin,function (req, res) {
+app.get('/admin', isAdmin, function (req, res) {
   res.render('admin/welcome_admin', {
   });
 });
