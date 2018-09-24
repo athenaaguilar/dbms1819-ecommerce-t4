@@ -177,44 +177,43 @@ app.get('/user', (req, res) => {
   });
  });
 app.get('/store', (req, res) => {
-  if (req.isAuthenticated()){
   Product.list(client,{},function(product) {
     res.render('user/store',{
       product: product
     });
   });
-}
+});
+
+app.get('/products/:id', function (req, res) {
+  if (req.isAuthenticated()){
+  client.query('SELECT products.id AS productsid,products.img AS productsimg,products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname FROM products INNER JOIN products_brand ON products.brand_id=products_brand.id INNER JOIN products_category ON products.category_id=products_category.id WHERE products.id = ' + req.params.id + '; ')
+    .then((products) => {
+        client.query('SELECT * FROM customer WHERE id = ' + req.user.id + '; ')
+        .then((customerData) => {
+          res.render('user/product', {
+            product: products.rows,
+            customer: customerData.rows
+          });
+        });
+      })
+    .catch((err) => {
+      console.log('error', err);
+      res.send('Error!');
+    });
+    }
   else{
     res.redirect('/login');
   }
 });
 
-app.get('/products/:id', function (req, res) {
-  client.query('SELECT products.id AS productsid,products.img AS productsimg,products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname FROM products INNER JOIN products_brand ON products.brand_id=products_brand.id INNER JOIN products_category ON products.category_id=products_category.id WHERE products.id = ' + req.params.id + '; ')
-    .then((results) => {
-      console.log('results?', results);
-      res.render('user/product', {
-        product: results.rows,
-      });
-    })
-    .catch((err) => {
-      console.log('error', err);
-      res.send('Error!');
-    });
-});
-
 app.get('/brand', function (req, res) {
-  if (req.isAuthenticated()){
     console.log('Session:',req.user.id);
   Brand.list(client,{},function(brands){
     res.render('user/brand_list',{
       brands: brands
     });
   });
-}
-  else {
     res.redirect('/login');
-  }
 });
 
 app.get('/category', function (req, res) {

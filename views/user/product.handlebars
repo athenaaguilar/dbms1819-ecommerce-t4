@@ -56,45 +56,49 @@
       </div>
       <div class="modal-body">
         <form method="post" action="/send-orders">
+          
              <input type="hidden" class="form-control" name="productsid" value="{{productsid}}" />
              <input type="hidden" class="form-control" name="productsname" value="{{productsname}}" />
               <div class="form-group">
+                {{/each}}
+           {{#each customer}}
             Quantity: <input class="form-control" type="number" placeholder="Enter Quantity" name="qty" required />
             </div>
             First Name:
             <div class="form-group">
-              <input type="text" class="form-control" id="fname" placeholder="Enter Your First Name" name="fname" required>
+              <input type="text" class="form-control" value="{{first_name}}"id="fname" placeholder="Enter Your First Name" name="fname" required>
             </div>
             Last Name:
             <div class="form-group">
-              <input type="text" class="form-control" id="lname" placeholder="Enter Your Last Name" name="lname" required>
+              <input type="text" class="form-control"  value="{{last_name}}" id="lname" placeholder="Enter Your Last Name" name="lname" required>
             </div>
             Street:
             <div class="form-group">
-              <input type="text" class="form-control" id="street" placeholder="Enter Street Name" name="street" required>
+              <input type="text" class="form-control"  value="{{street}}"  id="street" placeholder="Enter Street Name" name="street" required>
             </div>          
             Municipality: <br>
             <div class="form-group">
-              <input type="text" class="form-control" id="mun" placeholder="Enter Municipality" name="mun" required>
+              <input type="text" class="form-control"  value="{{municipality}}"  id="mun" placeholder="Enter Municipality" name="mun" required>
             </div>
 
             Province: <br>
             <div class="form-group">
-              <input type="text" class="form-control" id="province" placeholder="Enter Province" name="province" required>
+              <input type="text" class="form-control"  value="{{province}}" id="province" placeholder="Enter Province" name="province" required>
             </div>
 
             ZipCode: <br>
             <div class="form-group">
-              <input type="number" class="form-control" id="province" placeholder="Enter ZipCode" name="zip" required>
+              <input type="number" class="form-control"  value="{{zipcode}}"  id="province" placeholder="Enter ZipCode" name="zip" required>
             </div>
              Email: <br>
             <div class="form-group">
-              <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email" required >
+              <input type="text" class="form-control"  value="{{email}}"  id="email" placeholder="Enter Email" name="email" required >
             </div>
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-success pull-right"><i class="fas fa-paper-plane" style="font-size:15px"></i>&nbsp;&nbsp;Submit</button>
             </div>
+            {{/each}}
         </form>
       </div>
     </div>
@@ -109,7 +113,7 @@
     </div>
   </div>
 </div>
-{{/each}}
+
 
 <!--FOR SHOW-MODAL-->
 <script type="text/javascript">
