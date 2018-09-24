@@ -47,6 +47,7 @@ var Customer = {
           select * from customer where id = '${id.id}'
       `;
       client.query(query,(req,result)=>{
+        console.log(result.rows);
         callback(result.rows);
       });
     },

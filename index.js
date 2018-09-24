@@ -43,7 +43,7 @@ const Brand = require('./models/brand');
 const Order = require('./models/order');
 const Category = require('./models/category');
 const Customer = require('./models/customer');
-
+var role;
 app.use(session({ secret: 'ilove1234', resave: false, saveUninitialized: false }));
 
 // Initialize Passport and restore authentication state, if any, from the
@@ -56,6 +56,7 @@ app.get('/', function (req, res) {
   res.render('home', { });
 });
 //home---------------------------------------------
+
 //login--------------------------------------------
 passport.use(new Strategy({
   usernameField: 'email',
@@ -82,6 +83,24 @@ passport.deserializeUser(function(id, cb) {
   });
 });
 
+function isAdmin(req, res, next) {
+   if (req.isAuthenticated()) {
+  Customer.getCustomerData(client,{id: req.user.id},function(user){
+    role = user[0].user_type;
+    console.log('role:',role);
+    if (role == 'admin') {
+        return next();
+    }
+    else{
+      res.send('cannot access!');
+    }
+  });
+  }
+  else{
+res.redirect('/login');
+}
+}
+
 
 app.get('/login', function (req, res) {
   res.render('user/login', { });
@@ -89,7 +108,7 @@ app.get('/login', function (req, res) {
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/store');
+    res.redirect('/');
   });
 //login-------------------------------------------
 
@@ -151,12 +170,12 @@ app.post('/user/update', function (req, res) {
     res.redirect('/store')
   });
 });
+});
 //user---------------------------------------------
 app.get('/user', (req, res) => {
   res.render('user/welcome_user',{
   });
  });
-});
 app.get('/store', (req, res) => {
   if (req.isAuthenticated()){
   Product.list(client,{},function(product) {
@@ -208,12 +227,12 @@ app.get('/category', function (req, res) {
 //user---------------------------------------------
 
 //admin--------------------------------------------
-app.get('/admin', function (req, res) {
+app.get('/admin', isAdmin,function (req, res) {
   res.render('admin/welcome_admin', {
   });
 });
 
-app.get('/admin/dashboard', function (req, res) {
+app.get('/admin/dashboard', isAdmin,function (req, res) {
   var top10CustomerOrder;
   var top10MostOrderedProducts;
   var top10LeastOrderedProduct;
@@ -279,7 +298,7 @@ app.get('/admin/dashboard', function (req, res) {
 });
 
 
-app.get('/admin/productlist', (req, res) => {
+app.get('/admin/productlist', isAdmin,(req, res) => {
   Product.list(client,{},function(product){
     res.render('admin/product_list',{
       product: product
@@ -287,7 +306,7 @@ app.get('/admin/productlist', (req, res) => {
   });
 });
 
-app.get('/admin/products/:id', function (req, res) {
+app.get('/admin/products/:id',isAdmin, function (req, res) {
   client.query('SELECT products.id AS productsid,products.img AS productsimg,products.name AS productsname, products.descriptions AS productsdesc,products.tagline AS productstag,products.price AS productsprice,products.warranty AS productswarranty,products_brand.name AS productsbrand,products_brand.description AS branddesc,products_category.name AS categoryname FROM products INNER JOIN products_brand ON products.brand_id=products_brand.id INNER JOIN products_category ON products.category_id=products_category.id WHERE products.id = ' + req.params.id + '; ')
     .then((results) => {
       console.log('results?', results);
@@ -303,7 +322,7 @@ app.get('/admin/products/:id', function (req, res) {
 }); 
 
 
-app.get('/admin/brands', function (req, res) {
+app.get('/admin/brands',isAdmin, function (req, res) {
   Brand.list(client,{},function(brands){
     res.render('admin/brand_list',{
       brands: brands
@@ -311,7 +330,7 @@ app.get('/admin/brands', function (req, res) {
   });
 });
 
-app.get('/admin/categories', function (req, res) {
+app.get('/admin/categories', isAdmin,function (req, res) {
   Category.list(client,{},function(category){
     res.render('admin/category_list',{
       category: category
@@ -319,7 +338,7 @@ app.get('/admin/categories', function (req, res) {
   });
 })
 
-app.get('/admin/customers', function (req, res) {
+app.get('/admin/customers',isAdmin, function (req, res) {
   client.query('SELECT * FROM customer ORDER BY id DESC')
     .then((result) => {
       console.log('results?', result);
@@ -331,7 +350,7 @@ app.get('/admin/customers', function (req, res) {
     });
 });
 
-app.get('/admin/customers/:id', function (req, res) {
+app.get('/admin/customers/:id', isAdmin,function (req, res) {
   client.query("SELECT customer.first_name AS fname,customer.last_name AS lname,customer.email AS email,customer.street AS street,customer.municipality AS mun,customer.province AS province,customer.zipcode AS zip,products.name AS product,orders.quantity AS qty,orders.order_date AS orderdate FROM orders INNER JOIN customer ON customer.id=orders.customer_id INNER JOIN products ON products.id=orders.product_id WHERE customer.id = '" + req.params.id + "'ORDER BY orderdate DESC ")
     .then((result) => {
       console.log('results?', result);
@@ -344,7 +363,7 @@ app.get('/admin/customers/:id', function (req, res) {
 });
 
 
-app.get('/admin/customers/:id', function (req, res) {
+app.get('/admin/customers/:id', isAdmin,function (req, res) {
   client.query("SELECT customer.first_name AS fname,customer.last_name AS lname,customer.email AS email,customer.street AS street,customer.municipality AS mun,customer.province AS province,customer.zipcode AS zip,products.name AS product,orders.quantity AS qty,orders.order_date AS orderdate FROM orders INNER JOIN customer ON customer.id=orders.customer_id INNER JOIN products ON products.id=orders.product_id WHERE customer.id = '" + req.params.id + "'ORDER BY orderdate DESC ")
     .then((result) => {
       console.log('results?', result);
@@ -356,7 +375,7 @@ app.get('/admin/customers/:id', function (req, res) {
     });
 });
 
-app.get('/admin/orders', function (req, res) {
+app.get('/admin/orders', isAdmin,function (req, res) {
   Order.list(client,{},function(orders){
     res.render('admin/order_list',{
       orders: orders
@@ -364,7 +383,7 @@ app.get('/admin/orders', function (req, res) {
   });
 });
 
-app.get('/admin/product/create', function (req, res) {
+app.get('/admin/product/create', isAdmin,function (req, res) {
   var brand;
   var category;
   Brand.list(client,{},function(brands){
@@ -378,17 +397,17 @@ app.get('/admin/product/create', function (req, res) {
   }); 
 });
 
-app.get('/admin/brand/create', function (req, res) {
+app.get('/admin/brand/create', isAdmin,function (req, res) {
   res.render('admin/create_brand', {
   });
 });
 
-app.get('/admin/category/create', function (req, res) {
+app.get('/admin/category/create', isAdmin,function (req, res) {
   res.render('admin/create_category', {
   });
 });
 
-app.get('/admin/product/update/:id', function (req, res) {
+app.get('/admin/product/update/:id', isAdmin,function (req, res) {
   var category = [];
   var brand = [];
   var both = [];
@@ -427,7 +446,7 @@ app.get('/admin/product/update/:id', function (req, res) {
 });
 
 
-app.get('/admin/brand/update/:id', function (req, res) {
+app.get('/admin/brand/update/:id', isAdmin,function (req, res) {
      Brand.getById(client,{brandId: req.params.id},function(brand){
     res.render('admin/update_brand',{
       brand: brand
@@ -435,7 +454,7 @@ app.get('/admin/brand/update/:id', function (req, res) {
   });
 });
 
-app.get('/admin/category/update/:id', function (req, res) {
+app.get('/admin/category/update/:id',isAdmin, function (req, res) {
      Category.getById(client,{categoryId: req.params.id},function(category){
     res.render('admin/update_category',{
       category: category
