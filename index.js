@@ -207,13 +207,11 @@ app.get('/products/:id', function (req, res) {
 });
 
 app.get('/brand', function (req, res) {
-    console.log('Session:',req.user.id);
   Brand.list(client,{},function(brands){
     res.render('user/brand_list',{
       brands: brands
     });
   });
-    res.redirect('/login');
 });
 
 app.get('/category', function (req, res) {
